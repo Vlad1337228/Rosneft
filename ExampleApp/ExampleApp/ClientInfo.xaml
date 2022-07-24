@@ -1,0 +1,13 @@
+﻿<Window x:Class="ExampleApp.ClientInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExampleApp"
+        mc:Ignorable="d"
+        Title="ClientInfo" Height="347.727" Width="389.773">
+    <Grid Background="#FFC9C4C4">
+        <Label Content="Инструкция для пользования приложением:&#xD;&#xA;1) Для вывода данных нужно выбрать таблицу&#xD;&#xA;    в выпадающем списке и нажать на нужную строку&#xD;&#xA;2) Для создания информации, выберите таблицу, &#xD;&#xA;    снизу появится область для ввода данных.&#xD;&#xA;3) Для редактирования данных, выведите данные&#xD;&#xA;    таблицы, нажмите двойным щелчком мыши&#xD;&#xA;    на ячейку, которую хотите изменить, далее &#xD;&#xA;    напишите текст и нажмите кнопку &#xD;&#xA;          Сохранить отредактированные данные&#xD;&#xA;    и обнавите данные талицы.&#xD;&#xA;4) Для удаления данных, выберите строку в таблице, &#xD;&#xA;    которую хотите изменить и нажмите кнопку&#xD;&#xA;&#x9;&#x9;Удалить данные&#xD;&#xA;  " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="297" Width="362" FontSize="14" Background="Transparent"/>
+
+    </Grid>
+</Window>

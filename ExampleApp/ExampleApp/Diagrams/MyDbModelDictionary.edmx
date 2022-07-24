@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DictionaryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="VIN" />
+          </Key>
+          <Property Name="VIN" Type="nvarchar" MaxLength="17" Nullable="false" />
+          <Property Name="gos_number" Type="nchar" MaxLength="8" />
+          <Property Name="count_of_doors" Type="tinyint" />
+          <Property Name="brand" Type="nvarchar" MaxLength="50" />
+          <Property Name="model" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="passport_series_number" />
+          </Key>
+          <Property Name="passport_series_number" Type="int" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="age" Type="tinyint" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Dictionary.dbo.Group" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="VIN" />
+            <PropertyRef Name="passport_series_number" />
+          </Key>
+          <Property Name="VIN" Type="nvarchar" MaxLength="17" Nullable="false" />
+          <Property Name="passport_series_number" Type="int" Nullable="false" />
+          <Property Name="start_working" Type="datetime" />
+          <Property Name="end_working" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Group_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="VIN" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="VIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="passport_series_number" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="passport_series_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DictionaryModelContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Group].[VIN] AS [VIN], 
+    [Group].[passport_series_number] AS [passport_series_number], 
+    [Group].[start_working] AS [start_working], 
+    [Group].[end_working] AS [end_working]
+    FROM [dbo].[Group] AS [Group]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Group_Car" Association="Self.FK_Group_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Driver" Association="Self.FK_Group_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DictionaryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="VIN" />
+          </Key>
+          <Property Name="VIN" Type="String" MaxLength="17" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="gos_number" Type="String" MaxLength="8" FixedLength="true" Unicode="true" />
+          <Property Name="count_of_doors" Type="Byte" />
+          <Property Name="brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Group_Car" FromRole="Car" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="passport_series_number" />
+          </Key>
+          <Property Name="passport_series_number" Type="Int32" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="age" Type="Byte" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Group_Driver" FromRole="Driver" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="VIN" />
+            <PropertyRef Name="passport_series_number" />
+          </Key>
+          <Property Name="VIN" Type="String" MaxLength="17" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="passport_series_number" Type="Int32" Nullable="false" />
+          <Property Name="start_working" Type="DateTime" Precision="3" />
+          <Property Name="end_working" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Group_Car" FromRole="Group" ToRole="Car" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_Group_Driver" FromRole="Group" ToRole="Driver" />
+        </EntityType>
+        <Association Name="FK_Group_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="VIN" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="VIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Group" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="passport_series_number" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="passport_series_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DictionaryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Car" EntityType="Self.Car" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" />
+          <EntitySet Name="Group" EntityType="Self.Group" />
+          <AssociationSet Name="FK_Group_Car" Association="Self.FK_Group_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Driver" Association="Self.FK_Group_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DictionaryModelContainer" CdmEntityContainer="DictionaryEntities">
+          <EntitySetMapping Name="Car">
+            <EntityTypeMapping TypeName="DictionaryModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+                <ScalarProperty Name="gos_number" ColumnName="gos_number" />
+                <ScalarProperty Name="count_of_doors" ColumnName="count_of_doors" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="model" ColumnName="model" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Driver">
+            <EntityTypeMapping TypeName="DictionaryModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="passport_series_number" ColumnName="passport_series_number" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="age" ColumnName="age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="DictionaryModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+                <ScalarProperty Name="passport_series_number" ColumnName="passport_series_number" />
+                <ScalarProperty Name="start_working" ColumnName="start_working" />
+                <ScalarProperty Name="end_working" ColumnName="end_working" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

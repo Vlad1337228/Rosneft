@@ -1,0 +1,79 @@
+﻿<Window x:Class="ExampleApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExampleApp"
+        mc:Ignorable="d"
+        Title="Главное окно" Height="669" Width="1173.5" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Button.Background" Value="#FFC9C4C4" />
+                <Setter Property="Button.Foreground" Value="Black" />
+                <Setter Property="Button.FontFamily" Value="Verdana" />
+                <Setter Property="Button.Margin" Value="10" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Foreground" Value="#FFC9C4C4" />
+                    <Setter Property="Button.Background" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FFC9C4C4">
+        
+        <Button x:Name="btn1" Content="Вывод данных справочника" HorizontalAlignment="Left" Margin="19,124,0,0" VerticalAlignment="Top" Width="185" Click="Button_Click" Height="41"/>
+        <Button Content="Создание данных в справочнике" HorizontalAlignment="Left" Margin="19,170,0,0" VerticalAlignment="Top" Width="185" Height="41" Click="Button_Click_2"/>
+        <Button Content="Сохранить отредактированные &#xD;&#xA;данные" HorizontalAlignment="Left" Margin="19,216,0,0" VerticalAlignment="Top" Width="185" Height="41" Click="Button_Click_3"/>
+        <Button Content="Удаление данных" HorizontalAlignment="Left" Margin="19,262,0,0" VerticalAlignment="Top" Width="185" Click="Button_Click_1" Height="41"/>
+        <Label Content="Инструкция пользователя:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="1) Выберите таблицу для работы " HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="194"/>
+        <Label Content="2) Выберите действие, которое хотите произвести над таблицей&#xD;&#xA;    (снизу указаны 4 кнопки)" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="375" Height="45"/>
+        <ComboBox x:Name="ComboBoxTables" HorizontalAlignment="Left" Margin="209,41,0,0" VerticalAlignment="Top" Width="176" Height="26" FontSize="18" >
+            <TextBlock FontSize="18">Машина</TextBlock>
+            <TextBlock FontSize="18">Водитель</TextBlock>
+            <TextBlock FontSize="18">Экипаж</TextBlock>
+        </ComboBox>
+        <DataGrid x:Name="DataGridTable" HorizontalAlignment="Left" Height="618" Margin="447,10,0,0" VerticalAlignment="Top" Width="709" MouseDoubleClick="DataGridTable_MouseDoubleClick"/>
+        <Grid x:Name="GridCreateDataCar" HorizontalAlignment="Left" Height="298" Margin="19,330,0,0" VerticalAlignment="Top" Width="408" Background="#FFF0F0F0" Visibility="Hidden">
+            <TextBox x:Name="TextBoxVIN" HorizontalAlignment="Left" Height="23" Margin="163,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" />
+            <TextBox x:Name="TextBoxGosNumber" HorizontalAlignment="Left" Height="26" Margin="163,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxCountDoors" HorizontalAlignment="Left" Height="26" Margin="163,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxBrand" HorizontalAlignment="Left" Height="27" Margin="163,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxModel" HorizontalAlignment="Left" Height="25" Margin="163,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <Button Name="ButtonCreateCar" Content="Создать" HorizontalAlignment="Left" Margin="133,245,0,0" VerticalAlignment="Top" Width="117" Height="43" Click="ButtonCreateCar_Click"/>
+            <Label Content="VIN" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Height="23" Width="126" Background="White"/>
+            <Label Content="Гос. номер" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Height="26" Width="126" Background="White"/>
+            <Label Content="Количество дверей" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Height="26" Width="126" Background="White"/>
+            <Label Content="Марка" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Height="27" Width="126" Background="White"/>
+            <Label Content="Модель" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Height="25" Width="126" Background="White"/>
+        </Grid>
+        <Grid x:Name="GridCreateDataDriver" HorizontalAlignment="Left" Height="298
+              " Margin="19,330,0,0" VerticalAlignment="Top" Width="408
+              "  Background="#FFF0F0F0" Visibility="Hidden"
+              >
+            <Label Content="Паспорт" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="White" Width="100"/>
+            <Label Content="ФИО" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Background="White" Width="100"/>
+            <Label Content="Возраст" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Background="White" Width="100"/>
+            <Button Name="ButtonCreateDriver" Content="Создать" HorizontalAlignment="Left" Margin="133,245,0,0" VerticalAlignment="Top" Width="117" Height="43" Click="ButtonCreateDriver_Click"/>
+            <TextBox x:Name="TextBoxPassport" HorizontalAlignment="Left" Height="26" Margin="163,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxFIO" HorizontalAlignment="Left" Height="26" Margin="163,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxAge" HorizontalAlignment="Left" Height="27" Margin="163,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+        </Grid>
+        <Grid x:Name="GridCreateDataGroup" HorizontalAlignment="Left" Height="298" Margin="19,330,0,0" VerticalAlignment="Top" Width="408" Background="#FFF0F0F0" Visibility="Hidden">
+            <Label Content="VIN" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Height="23" Width="145" Background="White"/>
+            <Label Content="Серия номер паспорта" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Height="26" Width="145" Background="White"/>
+            <Label Content="Время начала движения" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Height="26" Width="145" Background="White"/>
+            <Label Content="Время конца движения" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Height="27" Width="145" Background="White"/>
+            <Button Name="ButtonCreateGroup" Content="Создать" HorizontalAlignment="Left" Margin="133,245,0,0" VerticalAlignment="Top" Width="117" Height="43" Click="ButtonCreateGroup_Click"/>
+            <TextBox x:Name="TextBoxGroupVIN" HorizontalAlignment="Left" Height="23" Margin="163,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxGroupPass" HorizontalAlignment="Left" Height="26" Margin="163,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxGroupBeforeDate" HorizontalAlignment="Left" Height="26" Margin="163,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="TextBoxGroupAfterTime" HorizontalAlignment="Left" Height="27" Margin="163,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"/>
+        </Grid>
+        <Button Content="Полная &#xD;&#xA;инструкция" HorizontalAlignment="Left" Margin="277,122,0,0" VerticalAlignment="Top" Width="75" Height="43" Click="Button_Click_4" TextOptions.TextFormattingMode="Display"/>
+    </Grid>
+</Window>
